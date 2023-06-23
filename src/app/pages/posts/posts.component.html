@@ -1,0 +1,38 @@
+<nz-space nzDirection="vertical" style="display: flex; height: 100%">
+  <h2 *nzSpaceItem nz-typography>Posts List</h2>
+  <nz-list
+    *nzSpaceItem
+    nzBordered
+    style="position: relative; overflow-y: scroll; height: calc(100vh - 350px)"
+    nzItemLayout="horizontal"
+    [nzLoading]="loading"
+    [nzDataSource]="data"
+    [nzRenderItem]="itemTemplate"
+    [nzFooter]="footerTemplate">
+    <ng-template #itemTemplate let-item>
+      <nz-list-item
+        ><nz-list-item-meta
+          nzAvatar="https://xsgames.co/randomusers/assets/avatars/{{
+            item.id | isEven
+          }}/{{ item.id }}.jpg"
+          nzDescription="{{ item.title }}">
+          <nz-list-item-meta-title>
+            <a href="{{ item.id }}">{{ item.status }}</a>
+          </nz-list-item-meta-title> </nz-list-item-meta
+        >{{ item.slug }}</nz-list-item
+      >
+    </ng-template>
+    <ng-template #footerTemplate>
+      <nz-pagination
+        style="display: flex; justify-content: center"
+        nzShowSizeChanger
+        [nzSize]="'small'"
+        [nzPageIndex]="pageIndex"
+        [nzPageSize]="pageSize"
+        [nzTotal]="totalItems"
+        [nzPageSizeOptions]="[5, 10, 20]"
+        (nzPageSizeChange)="onPageSizeChange($event)"
+        (nzPageIndexChange)="onPageIndexChange($event)"></nz-pagination>
+    </ng-template>
+  </nz-list>
+</nz-space>

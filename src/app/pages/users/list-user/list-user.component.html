@@ -1,0 +1,52 @@
+<nz-space nzDirection="vertical" style="display: flex; height: 100%">
+  <h2 *nzSpaceItem nz-typography>Users List</h2>
+  <div
+    *nzSpaceItem
+    style="display: flex; justify-content: flex-end; margin-bottom: 16px">
+    <button nz-button nzType="primary" (click)="addUser()">Add User</button>
+  </div>
+
+  <nz-list
+    *nzSpaceItem
+    nzBordered
+    style="position: relative; overflow-y: scroll; height: calc(100vh - 350px)"
+    [nzLoading]="isLoading">
+    <nz-list-item *ngFor="let item of data"
+      ><ng-template #descriptionTemplate item>
+        <a routerLink="{{ item.id }}" style="font-weight: bold"
+          >{{ item.first_name }} {{ item.last_name }}</a
+        >
+      </ng-template>
+      <nz-list-item-meta
+        nzAvatar="{{ item.avatar }}"
+        [nzDescription]="descriptionTemplate">
+        <nz-list-item-meta-title>
+          <nz-space nzDirection="vertical" style="display: flex">
+            {{ item.employment.title }} ({{ item.gender }})
+            <nz-space style="display: flex; margin-top: 8px"
+              ><a *nzSpaceItem routerLink="{{ item.id }}/edit"
+                ><button nz-button nzType="default">Edit</button></a
+              ><button
+                *nzSpaceItem
+                nz-button
+                nz-popconfirm
+                nzOkText="Yes"
+                nzCancelText="No"
+                nzPopconfirmTitle="Are you sure delete this user?"
+                [nzIcon]="iconTpl"
+                [nzBeforeConfirm]="beforeConfirm"
+                (nzOnConfirm)="confirm(item.id)"
+                (nzOnCancel)="cancel()">
+                Delete
+              </button></nz-space
+            >
+          </nz-space>
+        </nz-list-item-meta-title>
+      </nz-list-item-meta></nz-list-item
+    >
+    <nz-list-empty *ngIf="!data || data.length === 0"></nz-list-empty>
+  </nz-list>
+  <ng-template #iconTpl>
+    <span nz-icon nzType="question-circle-o" style="color: red"></span>
+  </ng-template>
+</nz-space>

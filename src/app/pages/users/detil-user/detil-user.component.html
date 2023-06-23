@@ -1,0 +1,35 @@
+<nz-space
+  *ngIf="detailUser !== null"
+  nzDirection="vertical"
+  style="display: flex; height: 100%">
+  <h2 *nzSpaceItem nz-typography>User Details</h2>
+
+  <nz-card
+    *nzSpaceItem
+    nzHoverable
+    style="width: 240px"
+    [nzCover]="coverTemplate">
+    <nz-card-meta
+      nzTitle="{{ detailUser.first_name }} {{ detailUser.last_name }}"
+      [nzDescription]="descTemplate"></nz-card-meta>
+  </nz-card>
+  <a *nzSpaceItem routerLink="/users"
+    ><button nz-button nzType="primary" style="width: 240px">
+      Back to List User
+    </button></a
+  >
+  <ng-template #coverTemplate>
+    <img alt="{{ detailUser.last_name }}" src="{{ detailUser.avatar }}" />
+  </ng-template>
+  <ng-template #descTemplate>
+    <nz-space nzDirection="vertical" style="display: flex; height: 100%">
+      <span *nzSpaceItem nz-typography>{{
+        detailUser.date_of_birth | usia
+      }}</span
+      ><span *nzSpaceItem nz-typography> {{ detailUser.gender }} </span>
+      <h4 *nzSpaceItem nz-typography>
+        {{ detailUser.employment.title }}
+      </h4>
+    </nz-space>
+  </ng-template>
+</nz-space>
